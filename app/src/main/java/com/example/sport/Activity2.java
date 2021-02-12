@@ -3,10 +3,8 @@ package com.example.sport;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-
 import java.util.ArrayList;
 
 public class Activity2 extends AppCompatActivity {
@@ -15,7 +13,7 @@ public class Activity2 extends AppCompatActivity {
     }
     ArrayList<Exercice> arrayList = new ArrayList<Exercice>() ;
     ArrayList<Exercice> seance = new ArrayList<Exercice>();
-    Frag_main fragmentPricipal = new Frag_main();
+    Frag_main fragmentPrincipal = new Frag_main();
     FragmentManager fm = getSupportFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +31,10 @@ public class Activity2 extends AppCompatActivity {
         bundle.putString("type", arrayList.get(i).getType() );
         bundle.putString("rep", arrayList.get(i).getnbRep());
         bundle.putString("poids",arrayList.get(i).getPoids());
-        fragmentPricipal.setArguments(bundle);
+        fragmentPrincipal.setArguments(bundle);
         fm.beginTransaction()
                 //replace in activity_main.xml the view with id frag_menu with the fragment fragMenu passing a null bundle (bundle is used to pass data to your fragment)
-                .add(R.id.frameLayout, fragmentPricipal, null)
+                .add(R.id.frameLayout, fragmentPrincipal, null)
                 //commit to update
                 .commit();
     }
@@ -46,10 +44,10 @@ public class Activity2 extends AppCompatActivity {
         int i = (int) (Math.random() * ( arrayList.size() - 0 ));
         bundle.putString("name", arrayList.get(i).getName() );
         bundle.putString("type", arrayList.get(i).getType() );
-        fragmentPricipal.setArguments(bundle);
+        fragmentPrincipal.setArguments(bundle);
         fm.beginTransaction()
                 //replace in activity_main.xml the view with id frag_menu with the fragment fragMenu passing a null bundle (bundle is used to pass data to your fragment)
-                .replace(R.id.frameLayout, fragmentPricipal, null)
+                .replace(R.id.frameLayout, fragmentPrincipal, null)
                 //commit to update
                 .commit();
     }
@@ -60,14 +58,12 @@ public class Activity2 extends AppCompatActivity {
         bundle.putString("name", arrayList.get(i).getName() );
         bundle.putString("type", arrayList.get(i).getType() );
         System.out.println(seance.size());
-        fragmentPricipal.setArguments(bundle);
+        fragmentPrincipal.setArguments(bundle);
         for (int j =0;j<seance.size();j++){
             System.out.println("nom " +seance.get(j).getName()+ " type " +seance.get(j).getType());
         }
         fm.beginTransaction()
-                //replace in activity_main.xml the view with id frag_menu with the fragment fragMenu passing a null bundle (bundle is used to pass data to your fragment)
-                .replace(R.id.frameLayout, fragmentPricipal, null)
-                //commit to update
+                .replace(R.id.frameLayout, fragmentPrincipal, null)
                 .commit();
     }
 
@@ -85,11 +81,9 @@ public class Activity2 extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("name", arrayList.get(i).getName() );
         bundle.putString("type", arrayList.get(i).getType() );
-        fragmentPricipal.setArguments(bundle);
+        fragmentPrincipal.setArguments(bundle);
         fm.beginTransaction()
-                //replace in activity_main.xml the view with id frag_menu with the fragment fragMenu passing a null bundle (bundle is used to pass data to your fragment)
-                .replace(R.id.frameLayout, fragmentPricipal, null)
-                //commit to update
+                .replace(R.id.frameLayout, fragmentPrincipal, null)
                 .commit();
     }
     public void launchAct3(){

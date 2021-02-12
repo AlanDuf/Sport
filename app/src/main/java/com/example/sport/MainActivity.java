@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,51 +18,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn;
-        btn = findViewById(R.id.button);
-        btn.setOnClickListener(this);
-
-
-
+        Button button;
+        button = findViewById(R.id.button);
+        button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        SQLiteDatabase db = openOrCreateDatabase("MaBaseDeDonnees",MODE_PRIVATE,null);
+        SQLiteDatabase db = openOrCreateDatabase("UserDB",MODE_PRIVATE,null);
         db.execSQL("CREATE TABLE IF NOT EXISTS user(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,login TEXT,password TEXT)");
-        db.execSQL("INSERT INTO user (login, password) VALUES ('eddi','malou')");
+        db.execSQL("INSERT INTO user (login, password) VALUES ('Ez','Ez')");
 
-        EditText ed = findViewById(R.id.editTextTextPersonName);
-        EditText ed2 = findViewById(R.id.editTextTextPersonName2);
+        EditText loginField = findViewById(R.id.loginField);
+        EditText PasswordField = findViewById(R.id.PasswordField);
         boolean exist = false;
-        Switch s = findViewById(R.id.switch1);
-        if(s.isChecked()){
+        Switch aSwitch = findViewById(R.id.switch1);
+        if(aSwitch.isChecked()){
             ContentValues newTaskValues = new ContentValues();
-            String log = ed.getText().toString();
-            String psw = ed2.getText().toString();
-            newTaskValues.put("login",ed.getText().toString());
-            newTaskValues.put("password",ed2.getText().toString());
+            String log = loginField.getText().toString();
+            String psw = PasswordField.getText().toString();
+            newTaskValues.put("login",loginField.getText().toString());
+            newTaskValues.put("password",PasswordField.getText().toString());
 
-            System.out.println(log+"ici");
 
             Cursor cursorSELECT = db.rawQuery("SELECT * FROM user", null);
             cursorSELECT.moveToFirst();
             while (!cursorSELECT.isLast()) {
-                if(cursorSELECT.getString(1).equals(ed.getText().toString()) && cursorSELECT.getString(2).equals(ed2.getText().toString())){
+                if(cursorSELECT.getString(1).equals(loginField.getText().toString()) && cursorSELECT.getString(2).equals(PasswordField.getText().toString())){
                     exist=true;
-                    System.out.println("vrai");
                 }
-                System.out.println(cursorSELECT.getString(1)+" ed "+ed.getText().toString() + cursorSELECT.getString(2)+ " ed2 "+ed2.getText().toString());
+                System.out.println(cursorSELECT.getString(1)+" login "+loginField.getText().toString() + cursorSELECT.getString(2)+ " Password "+PasswordField.getText().toString());
                 cursorSELECT.moveToNext();
             }
             if(!exist){
                 db.insert("user",null,newTaskValues);
-                System.out.println("insertion bd");
             }
             else{
-                s.setChecked(false);
-                System.out.println(log+"ici");
-                System.out.println("nous testons le setChecked "+ s.isChecked());
+                aSwitch.setChecked(false);
             }
 
         }
@@ -72,14 +63,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             cursorSELECT.moveToFirst();
             while (!cursorSELECT.isLast()) {
                 cursorSELECT.moveToNext();
-                if(cursorSELECT.getString(1).equals(ed.getText().toString()) && cursorSELECT.getString(2).equals(ed2.getText().toString())){
-                    System.out.println("je suis la");
+                if(cursorSELECT.getString(1).equals(loginField.getText().toString()) && cursorSELECT.getString(2).equals(PasswordField.getText().toString())){
                     Intent activity2Intent = new Intent(getApplicationContext(), Activity2.class);
                     startActivity(activity2Intent);
                 }
             }
 
-            s.setChecked(true);
+            aSwitch.setChecked(true);
         }
     }
 }
